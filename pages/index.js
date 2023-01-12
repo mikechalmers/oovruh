@@ -1,11 +1,20 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from '@next/font/google'
+
+import {useEffect, useState} from "react";
+import axios from "axios";
 import styles from '../styles/Home.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
+  const url = 'http://192.168.0.18:8000/api';
+  const [work, setWork] = useState([]);
+
+  useEffect(() => {
+    axios.get(url).then(res => {
+      setWork(res.data);
+    })
+  }, [])
+
   return (
     <>
       <Head>
@@ -16,18 +25,23 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>oovruh</h1>
-        <div className={styles.gate}>
+        {work.map(c => {
+          return (
+        <div key={c._id} className={styles.gate}>
           <div className={styles.workitem}>one</div>
-          <div>two</div>
+          <div>{c.title}</div>
+          <div>{c.year}</div>
           <div>thr</div>
           <div>fou</div>
           <div>fiv</div>
           <div>six</div>
-          <div>fou</div>
-          <div>fiv</div>
-          <div>six</div>
+          <div>sev</div>
+          <div>eig</div>
+          <div>nin</div>
         </div>
+          )
+        })}
       </main>
     </>
   )
-}
+};
