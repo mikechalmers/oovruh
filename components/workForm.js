@@ -2,15 +2,32 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 
+import { useS3Upload, getImageData } from 'next-s3-upload';
+import Image from 'next/image';
+
+import styles from '../styles/Form.module.css'
+
 const Form = ({ formId, workForm, forNewWork = true }) => {
   const router = useRouter()
   const contentType = 'application/json'
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
 
+  let [imageUrl, setImageUrl] = useState();
+  let [height, setHeight] = useState();
+  let [width, setWidth] = useState();
+  // let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
+  let { uploadToS3 } = useS3Upload();
+
   const [form, setForm] = useState({
     title: workForm.title,
     year: workForm.year,
+    images: {
+      alt: workForm.alt,
+      uri: imageUrl,
+      width: width,
+      height: height,
+    },
   })
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -64,17 +81,68 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
     }
   }
 
-  const handleChange = (e) => {
+  const handleChange = async(e) => {
     const target = e.target
-    const value =
-      target.name === 'poddy_trained' ? target.checked : target.value
+    const value = target.value
     const name = target.name
 
-    setForm({
-      ...form,
-      [name]: value,
-    })
+    if (name === 'alt') {
+      setForm({
+        ...form,
+        images: {
+          ...form.images,
+          [name]: value,
+        },
+      })
+    } else if (name === 'image') { 
+      let file = e.target.files[0];
+      let { url } = await uploadToS3(file);
+      let { height, width } = await getImageData(file);
+
+
+      setImageUrl(url);
+
+      setForm({
+        ...form,
+        images: {
+          ...form.images,
+          uri: url,
+          height,
+          width,
+        },
+      })
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      })
+    }
+
   }
+
+  // let handleFileChange = async file => {
+  //   let { url } = await uploadToS3(file);
+  //   let { height, width } = await getImageData(file);
+  //   setWidth(width);
+  //   setHeight(height);
+  //   setImageUrl(url);
+
+  //   console.log(`uri: ${url}`);
+  //   console.log(`width: ${width}`);
+  //   console.log(`height: ${height}`);
+
+  //   setForm({
+  //     ...form,
+  //     images: {
+  //       ...form.images,
+  //       uri: url,
+  //       height,
+  //       width,
+  //     }
+  //   });
+
+  //   console.log(form);
+  // };
 
   /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
   const formValidate = () => {
@@ -96,8 +164,8 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   return (
     <>
-      <form id={formId} onSubmit={handleSubmit}>
-        <label htmlFor="name">Title</label>
+      <form id={formId} className={styles.uploadForm} onSubmit={handleSubmit}>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           maxLength="20"
@@ -107,7 +175,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           required
         />
 
-        <label htmlFor="owner_name">Year</label>
+        <label htmlFor="year">Year</label>
         <input
           type="text"
           maxLength="20"
@@ -116,6 +184,19 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           onChange={handleChange}
           required
         />
+
+        <label htmlFor="alt">Alt</label>
+        <input
+          type="text"
+          maxLength="20"
+          name="alt"
+          value={form.alt}
+          onChange={handleChange}
+          required
+        />
+
+        <input type="file" name="image" onChange={handleChange} />
+        {imageUrl && <img src={imageUrl} />}
 
         <button type="submit" className="btn">
           Submit

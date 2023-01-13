@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -25,11 +26,12 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>oovruh</h1>
+        <Link href="/form">form</Link>
         {work.map(c => {
           return (
         <div key={c._id} className={styles.gate}>
           <div className={styles.workitem}>
-                {c.images && <Image src={c.images.uri} width={c.images.width} height={c.images.height} alt={ c.title } />}
+                {c.images && <img src={c.images.uri} width={c.images.width} height={c.images.height} alt={c.title} />}
           </div>
           <div>{c.title}</div>
           <div>{c.year}</div>
