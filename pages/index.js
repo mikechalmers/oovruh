@@ -28,7 +28,9 @@ export default function Home() {
         {work.map(c => {
           return (
         <div key={c._id} className={styles.gate}>
-          <div className={styles.workitem}>one</div>
+          <div className={styles.workitem}>
+                {c.images && <Image src={c.images.uri} width={c.images.width} height={c.images.height} alt={ c.title } />}
+          </div>
           <div>{c.title}</div>
           <div>{c.year}</div>
           <div>thr</div>
