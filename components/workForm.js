@@ -1,3 +1,5 @@
+// based on https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/components/Form.js
+
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { mutate } from 'swr'
@@ -94,23 +96,33 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           [name]: value,
         },
       })
-    } else if (name === 'image') { 
-      let file = e.target.files[0];
-      let { url } = await uploadToS3(file);
-      let { height, width } = await getImageData(file);
-
-
-      setImageUrl(url);
-
-      setForm({
-        ...form,
-        images: {
-          ...form.images,
-          uri: url,
-          height,
-          width,
-        },
-      })
+    } else if (name === 'image') {
+      if (!e.target.files[0]) {
+        setForm({
+          ...form,
+          images: {
+            ...form.images,
+            uri: '',
+            height: '',
+            width: '',
+          },
+        })
+      } else {
+        let file = e.target.files[0];
+        let { url } = await uploadToS3(file);
+        let { height, width } = await getImageData(file);
+  
+        setImageUrl(url);
+        setForm({
+          ...form,
+          images: {
+            ...form.images,
+            uri: url,
+            height,
+            width,
+          },
+        })
+      }
     } else {
       setForm({
         ...form,
@@ -148,6 +160,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const formValidate = () => {
     let err = {}
     if (!form.title) err.title = 'Title is required'
+    if (!imageUrl) err.image = 'Image is required'
     return err
   }
 
@@ -195,7 +208,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           required
         />
 
-        <input type="file" name="image" onChange={handleChange} />
+        <input type="file" name="image" onChange={handleChange} required />
         {imageUrl && <img src={imageUrl} />}
 
         <button type="submit" className="btn">
