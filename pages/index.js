@@ -6,6 +6,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import styles from '../styles/Home.module.css'
 
+import Autth from '../components/autth'
+import Work from '../components/workBox'
+
 export default function Home() {
   const url = 'http://192.168.0.18:8000/api';
   const [work, setWork] = useState([]);
@@ -26,26 +29,28 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>oovruh</h1>
-        <Link href="/form">form</Link>
-        {work.map(c => {
-          return (
-        <div key={c._id} className={styles.gate}>
-          <div className={styles.workitem}>
-                {c.images && <img src={c.images.uri} width={c.images.width} height={c.images.height} alt={c.title} />}
-          </div>
-          <div>{c.title}</div>
-          <div>{c.year}</div>
-          <div>thr</div>
-          <div>fou</div>
-          <div>fiv</div>
-          <div>six</div>
-          <div>sev</div>
-          <div>eig</div>
-          <div>nin</div>
+        <div className={styles.meta}>
+          <Autth />
+          <Link href="/form">form</Link>
         </div>
+        {work.map(data => {
+          return (
+            <Work key={data._id} data={data} />
           )
         })}
       </main>
     </>
   )
 };
+
+// if the user data is publically available
+// export async function getStaticProps() {
+//   const res = await fetch('http://192.168.0.18:8000/api');
+//   const work = await res.json()
+//   console.log(work)
+//   return (
+//     props: {
+//      work,
+//     }
+//   )
+// }
