@@ -15,7 +15,6 @@ export default function Navbar({ children }) {
         <Link href="/form">form</Link>
       </div>
       <h1>oovruh</h1>
-      <input tpe="text" name="nav" />
       <div className={styles.meta}>
         <Autth />
       </div>

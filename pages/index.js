@@ -11,18 +11,31 @@ export default function Home() {
   const url = 'http://192.168.0.18:8000/api';
   const [work, setWork] = useState([]);
 
+  let noWork;
+
   useEffect(() => {
     axios.get(url).then(res => {
       setWork(res.data);
     })
   }, [])
 
+  console.log(work)
+
+  if (work.length == 0) {
+    noWork = <h1>No artworks found</h1>
+  } else {
+    noWork = <h2>All Works</h2>
+  }
+
   return (
     <>
       <div className={styles.main}>
+        {noWork}
         {work.map(data => {
           return (
-            <Work key={data._id} data={data} />
+            <div className={styles.singleWork}>
+              <Work key={data._id} data={data} showLink />
+            </div>
           )
         })}
       </div>

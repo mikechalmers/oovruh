@@ -1,9 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 
-import {useEffect, useState} from "react";
-import axios from "axios";
 import styles from '../../styles/Home.module.css'
 
 import Work from '../../components/workBox'
@@ -11,24 +8,24 @@ import Work from '../../components/workBox'
 export default function Home(props) {
   
   const router = useRouter();
-  const [work, setWork] = useState([]);
 
   if (props.hasError) {
-    return <h1>Error - Artwork not found.</h1>
+    return <h2>Artwork not found</h2>
   }
 
   if (router.isFallback) {
-      return <h1>Loading...</h1>
+      return <h2>Loading...</h2>
   }
 
   let data = props.singleWork;
 
   return (
-    <>
-      <div className={styles.main}>
-        <Work key={data._id} data={data} />
+    <div className={styles.main}>
+      <div className={styles.singleWork}>
+        <h2>{data.title} ({ data.year })</h2>
+        <Work key={data._id} data={data} deleteAble />
       </div>
-    </>
+    </div>
   )
 };
 
@@ -38,7 +35,7 @@ async function getData() {
   await fetch(url)
     .then((response) => response.json())
     .then((data) => fetched = data);
-  console.log(fetched);
+  // console.log(fetched);
   return fetched;
 }
 
@@ -64,7 +61,7 @@ export const getStaticPaths = async () => {
   const pathsWithParams = data.map((item) => ({ params: { _id: item._id }}))
 
   return {
-      paths: pathsWithParams,
-      fallback: true
+    paths: pathsWithParams,
+    fallback: true
   }
 }
