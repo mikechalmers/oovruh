@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import styles from '../styles/Work.module.css'
 
 const Work = ({ data }) => {
@@ -15,6 +17,9 @@ const Work = ({ data }) => {
       <div>sev</div>
       <div>eig</div>
       <div>nin</div>
+      <div>
+        <Link href={`/artwork/${data._id}`}>permalink</Link>
+      </div>
     </div>
   )
 }

@@ -3,47 +3,57 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
   padding: 3rem 6rem;
   font-family: Arial, Helvetica, sans-serif;
   background: #e8e8e8;
+  max-width: 600px;
+  margin-inline: auto;
 }
 
-.uploadForm input,
-.uploadForm button {
+.uploadHero {
+  margin-bottom: 3em;
+}
+
+.uploadField {
+  width: 100%;
+}
+
+.uploadForm input[type="text"],
+.uploadForm button,
+.uploadContainer {
   border: 5px solid #111;
   height: 4em;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  background: white;
   text-align: center;
 }
 
-/* 
-.gate {
-  width: 100%;
-  max-width: 1180px;
-  padding: 5px;
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  grid-gap: 5px;
-  background-color: #111;
-  box-shadow:
-    2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
+.uploadContainer {
+  /* min-height: 400px; */
+  position: relative;
 }
 
-.gate>* {
-  background-color: #fff;
-  padding: 10px;
+.uploadContainer [type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
 }
 
-.workitem {
-  grid-row-start: 1;
-  grid-column-start: 1;
-  grid-row-end: -1;
-  grid-column-end: 2;
-} */
+.uploadContainer label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

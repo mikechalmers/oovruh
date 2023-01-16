@@ -178,41 +178,53 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   return (
     <>
       <form id={formId} className={styles.uploadForm} onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          maxLength="20"
-          name="title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
+        <img src='art.svg' alt='art' className={styles.uploadHero} />
 
-        <label htmlFor="year">Year</label>
-        <input
-          type="text"
-          maxLength="20"
-          name="year"
-          value={form.year}
-          onChange={handleChange}
-          required
-        />
+        <div className={styles.uploadField}>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            maxLength="20"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="alt">Alt</label>
-        <input
-          type="text"
-          maxLength="20"
-          name="alt"
-          value={form.alt}
-          onChange={handleChange}
-          required
-        />
+        <div className={styles.uploadField}>
+          <label htmlFor="year">Year</label>
+          <input
+            type="text"
+            maxLength="20"
+            name="year"
+            value={form.year}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <input type="file" name="image" onChange={handleChange} required />
+        <div className={styles.uploadContainer}>
+          <label htmlFor="image">⬆️ Artwork Image Upload</label>
+          <input type="file" id="image" name="image" onChange={handleChange} required />
+        </div>
+
         {imageUrl && <img src={imageUrl} />}
+        
+        <div className={styles.uploadField}>
+          <label htmlFor="alt">Image Alt Tag</label>
+          <input
+            type="text"
+            maxLength="20"
+            name="alt"
+            value={form.alt}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
         <button type="submit" className="btn">
-          Submit
+          ⏭️ Submit
         </button>
       </form>
       <p>{message}</p>

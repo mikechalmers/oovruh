@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(200, 200, 200, 0.5);
+  position: fixed;
+  width: 100%;
+}
+
+.meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
