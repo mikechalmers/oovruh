@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 
 import { useS3Upload, getImageData } from 'next-s3-upload';
-import Image from 'next/image';
 
 import styles from '../styles/Form.module.css'
 
@@ -15,29 +14,26 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
 
-  let [imageUrl, setImageUrl] = useState();
-  let [height, setHeight] = useState();
-  let [width, setWidth] = useState();
-  // let { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
   let { uploadToS3 } = useS3Upload();
+
+  const { _id } = router.query
 
   const [form, setForm] = useState({
     title: workForm.title,
     year: workForm.year,
     images: {
-      alt: workForm.alt,
-      uri: imageUrl,
-      width: width,
-      height: height,
+      alt: workForm.images.alt,
+      uri: workForm.images.uri,
+      width: workForm.images.width,
+      height: workForm.images.height,
     },
   })
 
   /* The PUT method edits an existing entry in the mongodb database. */
   const putData = async (form) => {
-    const { id } = router.query
 
     try {
-      const res = await fetch(`http://192.168.0.18:8000/api/${id}`, {
+      const res = await fetch(`http://192.168.0.18:8000/api/artwork/${_id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,
@@ -53,7 +49,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
       const { data } = await res.json()
 
-      mutate(`/api/${id}`, data, false) // Update the local data without a revalidation
+      mutate(`/api/artwork/${_id}`, data, false) // Update the local data without a revalidation
       router.push('/')
     } catch (error) {
       setMessage('Failed to update work')
@@ -112,7 +108,6 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
         let { url } = await uploadToS3(file);
         let { height, width } = await getImageData(file);
   
-        setImageUrl(url);
         setForm({
           ...form,
           images: {
@@ -132,92 +127,69 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   }
 
-  // let handleFileChange = async file => {
-  //   let { url } = await uploadToS3(file);
-  //   let { height, width } = await getImageData(file);
-  //   setWidth(width);
-  //   setHeight(height);
-  //   setImageUrl(url);
-
-  //   console.log(`uri: ${url}`);
-  //   console.log(`width: ${width}`);
-  //   console.log(`height: ${height}`);
-
-  //   setForm({
-  //     ...form,
-  //     images: {
-  //       ...form.images,
-  //       uri: url,
-  //       height,
-  //       width,
-  //     }
-  //   });
-
-  //   console.log(form);
-  // };
-
-  /* Makes sure pet info is filled for pet name, owner name, species, and image url*/
+  /* Makes sure necessary info is filled */
   const formValidate = () => {
     let err = {}
     if (!form.title) err.title = 'Title is required'
-    if (!imageUrl) err.image = 'Image is required'
+    if (!form.images.uri) err.title = 'Image is required'
     return err
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(form);
+    console.log('Form submitted: ', form);
     const errs = formValidate()
     if (Object.keys(errs).length === 0) {
       forNewWork ? postData(form) : putData(form)
     } else {
-      setErrors({ errs })
+      setErrors(errs)
+      console.log("Submission errors: ", errors)
     }
   }
 
   return (
     <>
       <form id={formId} className={styles.uploadForm} onSubmit={handleSubmit}>
-        <img src='art.svg' alt='art' className={styles.uploadHero} />
+        <img src='/art.svg' alt='art' className={styles.uploadHero} />
+
+        {form.images.uri && <img src={form.images.uri} />}
+
+        <div className={styles.uploadContainer}>
+          <label htmlFor="image">⬆️ Artwork Image Upload</label>
+          <input type="file" id="image" name="image" onChange={handleChange} />
+        </div>
+        
+        <div className={styles.uploadField}>
+          <label htmlFor="alt" className={styles.tabbedLabel}>Image Alt Tag</label>
+          <input
+            type="text"
+            maxLength="250"
+            name="alt"
+            value={form.images.alt}
+            onChange={handleChange}
+            required
+          />
+        </div>
 
         <div className={styles.uploadField}>
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title" className={styles.tabbedLabel}>Title</label>
           <input
             type="text"
             maxLength="20"
             name="title"
             value={form.title}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
         <div className={styles.uploadField}>
-          <label htmlFor="year">Year</label>
+          <label htmlFor="year" className={styles.tabbedLabel}>Year</label>
           <input
             type="text"
             maxLength="20"
             name="year"
             value={form.year}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.uploadContainer}>
-          <label htmlFor="image">⬆️ Artwork Image Upload</label>
-          <input type="file" id="image" name="image" onChange={handleChange} required />
-        </div>
-
-        {imageUrl && <img src={imageUrl} />}
-        
-        <div className={styles.uploadField}>
-          <label htmlFor="alt">Image Alt Tag</label>
-          <input
-            type="text"
-            maxLength="20"
-            name="alt"
-            value={form.alt}
             onChange={handleChange}
             required
           />

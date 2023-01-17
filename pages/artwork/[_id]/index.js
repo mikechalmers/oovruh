@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 
-import styles from '../../styles/Home.module.css'
+import styles from '../../../styles/Home.module.css'
 
-import Work from '../../components/workBox'
+import Work from '../../../components/workBox'
 
-export default function Home(props) {
+export default function singleArtwork(props) {
   
   const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function Home(props) {
     <div className={styles.main}>
       <div className={styles.singleWork}>
         <h2>{data.title} ({ data.year })</h2>
-        <Work key={data._id} data={data} deleteAble />
+        <Work key={data._id} data={data} deleteAble showLink />
       </div>
     </div>
   )

@@ -58,3 +58,13 @@
   align-items: center;
   cursor: pointer;
 }
+
+.uploadForm .tabbedLabel {
+  /* border: 5px solid #111; */
+  background: #111;
+  color: #fff;
+  transform: translate(5px, -5px);
+  font-size: 0.7em;
+  text-transform: uppercase;
+  padding: 0.4em;
+}

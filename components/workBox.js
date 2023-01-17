@@ -29,13 +29,13 @@ const Work = ({ data, showLink, deleteAble }) => {
   }
 
   let deleter;
-    if (deleteAble) {
-      deleter = (
-        <a href="#" onClick={handleDelete}>delete</a>
-      )
-    } else {
-      deleter = "No delete here!";
-    }
+  if (deleteAble) {
+    deleter = (
+      <a href="#" onClick={handleDelete}>delete</a>
+    )
+  } else {
+    deleter = "No delete here!";
+  }
   
   return (
     <div className={styles.gate}>
@@ -65,7 +65,7 @@ const Work = ({ data, showLink, deleteAble }) => {
         { deleter }
       </div>
       <div>
-        { showLink && <Link href={`/artwork/edit/${data._id}`}>edit</Link> }
+        { showLink && <Link href={`/artwork/${data._id}/edit/`}>edit</Link> }
       </div>
       <div>
         { showLink && <Link href={`/artwork/${data._id}`}>permalink</Link> }

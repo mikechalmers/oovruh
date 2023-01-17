@@ -30,3 +30,14 @@ main {
   justify-content: center;
   min-height: calc(100vh - 69px)
 }
+
+a:link,
+a:visited {
+  color: #e82b31;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #0000ff;
+  font-weight: bold;
+}
