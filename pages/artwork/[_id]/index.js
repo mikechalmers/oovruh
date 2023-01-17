@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useRouter } from 'next/router';
 
 import styles from '../../../styles/Home.module.css'
@@ -9,6 +8,8 @@ export default function singleArtwork(props) {
   
   const router = useRouter();
 
+  let data = props.singleWork;
+
   if (props.hasError) {
     return <h2>Artwork not found</h2>
   }
@@ -17,12 +18,10 @@ export default function singleArtwork(props) {
       return <h2>Loading...</h2>
   }
 
-  let data = props.singleWork;
-
   return (
     <div className={styles.main}>
       <div className={styles.singleWork}>
-        <h2>{data.title} ({ data.year })</h2>
+        <h2>{data.title} ({data.year})</h2>
         <Work key={data._id} data={data} deleteAble showLink />
       </div>
     </div>

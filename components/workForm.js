@@ -16,7 +16,9 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   let { uploadToS3 } = useS3Upload();
 
-  const { _id } = router.query
+  console.log(router.query._id)
+
+  const id = router.query._id;
 
   const [form, setForm] = useState({
     title: workForm.title,
@@ -33,7 +35,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const putData = async (form) => {
 
     try {
-      const res = await fetch(`http://192.168.0.18:8000/api/artwork/${_id}`, {
+      const res = await fetch(`http://192.168.0.18:8000/api/artwork/${id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,
@@ -49,7 +51,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
       const { data } = await res.json()
 
-      mutate(`/api/artwork/${_id}`, data, false) // Update the local data without a revalidation
+      mutate(`/api/artwork/${id}`, data, false) // Update the local data without a revalidation
       router.push('/')
     } catch (error) {
       setMessage('Failed to update work')
