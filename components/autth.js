@@ -22,7 +22,7 @@ const Autth = () => {
       <>
         Not signed in <br />
         <Link href='/api/auth/signin'>
-          <a>Login</a>
+          Login
         </Link>
       </>
     )

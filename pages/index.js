@@ -19,7 +19,7 @@ export default function Home() {
     })
   }, [])
 
-  console.log(work)
+  // console.log(work)
 
   if (work.length == 0) {
     noWork = <h1>No artworks found</h1>
@@ -33,8 +33,8 @@ export default function Home() {
         {noWork}
         {work.map(data => {
           return (
-            <div className={styles.singleWork}>
-              <Work key={data._id} data={data} showLink />
+            <div key={data._id} className={styles.singleWork}>
+              <Work data={data} showLink />
             </div>
           )
         })}
