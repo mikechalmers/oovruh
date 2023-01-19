@@ -12,7 +12,8 @@ export default function Navbar({ children }) {
     <div className={styles.navbar}>
       <div className={styles.meta}>
         <Link href="/">home</Link>
-        <Link href="/form">form</Link>
+        <Link href="/form">add work</Link>
+        <Link href="/protected">members area</Link>
       </div>
       <h1>oovruh</h1>
       <div className={styles.meta}>

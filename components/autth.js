@@ -2,6 +2,8 @@ import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 
+import styles from '../styles/navbar.module.css'
+
 const Autth = () => {
   const { data: session, status } = useSession()
 
@@ -12,19 +14,18 @@ const Autth = () => {
   if (status === 'authenticated') {
     return (
       <>
-        Signed in as {session.user.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+      <div>
+        Signed in as <span className={styles.loggedIn}>{session.user.email}</span>
+      </div>
+        <button className={ styles.navButton } onClick={() => signOut()}>Sign out</button>
       </>
     )
   }
   if (status === 'unauthenticated') {
     return (
-      <>
-        Not signed in <br />
-        <Link href='/api/auth/signin'>
-          Login
-        </Link>
-      </>
+      <div>
+        Not signed in <Link href='/api/auth/signin'>Login</Link>
+      </div>
     )
   }
 }

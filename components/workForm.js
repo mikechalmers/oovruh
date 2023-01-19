@@ -16,8 +16,6 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   let { uploadToS3 } = useS3Upload();
 
-  console.log(router.query._id)
-
   const id = router.query._id;
 
   const [form, setForm] = useState({
@@ -139,7 +137,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Form submitted: ', form);
+    console.log('Artwork submitted: ', form);
     const errs = formValidate()
     if (Object.keys(errs).length === 0) {
       forNewWork ? postData(form) : putData(form)
