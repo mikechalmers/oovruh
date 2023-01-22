@@ -8,7 +8,7 @@ const Work = ({ data, showLink, deleteAble }) => {
 
   const deleteWork = async (id) => {
     try {
-      const res = await fetch(`http://192.168.0.18:8000/api/${id}`, {
+      const res = await fetch(`http://192.168.0.18:9000/api/artworks/${id}`, {
         method: 'DELETE',
       })
       // Throw error with status code in case Fetch API req failed
