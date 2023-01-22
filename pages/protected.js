@@ -10,11 +10,9 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function ProtectedPage() {
   const { data: session } = useSession()
-  const [content, setContent] = useState()
 
-  // new SWR fetching - checking if causing bug
-  const { artwork, isLoading, isError } = getData('http://192.168.0.18:9000/api/artwork');
-  
+  // new SWR fetching
+  const { artwork, isLoading, isError } = getData('http://192.168.0.18:9000/api/artworks/');
 
   if (isError) return <h2>error finding data</h2>
   if (isLoading) return <h2>loading...!</h2>
@@ -33,7 +31,6 @@ export default function ProtectedPage() {
   }
   
   return (
-    <>
       <div className={styles.main}>
         <h2>All Works</h2>
         {artwork.map(data => {
@@ -44,7 +41,6 @@ export default function ProtectedPage() {
           )
         })}
       </div>
-    </>
   )
 }
 

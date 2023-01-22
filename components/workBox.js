@@ -24,17 +24,7 @@ const Work = ({ data, showLink, deleteAble }) => {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    console.log(e.target);
     deleteWork(data._id);
-  }
-
-  let deleter;
-  if (deleteAble) {
-    deleter = (
-      <a href="#" onClick={handleDelete}>delete</a>
-    )
-  } else {
-    deleter = "No delete on this here route!";
   }
   
   return (
@@ -62,7 +52,7 @@ const Work = ({ data, showLink, deleteAble }) => {
       <div>six</div>
       <div>sev</div>
       <div>
-        { deleter }
+        { deleteAble ?  <a href="#" onClick={handleDelete}>delete</a> : "No delete on this hyah route!"}
       </div>
       <div>
         { showLink && <Link href={`/artwork/${data._id}/edit/`}>edit</Link> }

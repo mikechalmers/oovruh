@@ -2,11 +2,8 @@
 
 import Navbar from './navbar'
 // import Footer from './footer'
-import Autth from '../components/autth'
 
-import Link from 'next/link'
 import Head from 'next/head'
-import styles from '../styles/navbar.module.css'
 
 export default function Layout({ children }) {
   return (

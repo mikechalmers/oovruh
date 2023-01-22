@@ -34,7 +34,6 @@ async function dbConnect () {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       bufferCommands: false,
-      strictQuery: true
     }
 
     cached.promise = mongoose.connect(ATLAS_URI, opts).then(mongoose => {

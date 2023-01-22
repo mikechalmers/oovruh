@@ -1,6 +1,6 @@
 // lib/mongodb.js
 
-// maybe we delete this, keeping here in case something uses it
+// this is used bu next-auth until we can use the mongoose connection at dbConnect
 
 import { MongoClient } from 'mongodb'
 

@@ -19,7 +19,7 @@ export default function EditWork(props) {
 }
 
 async function getData() {
-  const url = 'http://192.168.0.18:9000/api/artwork';
+  const url = 'http://192.168.0.18:9000/api/artworks/';
   let fetched;
   await fetch(url)
     .then((response) => response.json())

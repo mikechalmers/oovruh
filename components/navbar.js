@@ -1,7 +1,5 @@
 // components/navbar.js
 
-// import Navbar from './navbar'
-// import Footer from './footer'
 import Autth from '../components/autth'
 
 import Link from 'next/link'
