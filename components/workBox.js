@@ -40,7 +40,7 @@ const Work = ({ data, showLink, deleteAble }) => {
   return (
     <div className={styles.gate}>
       <div className={styles.workitem}>
-        {data.images && <img src={data.images.uri} width={data.images.width} height={data.images.height} alt={data.title} />}
+        {data.images && <Link href={`/artwork/${data._id}`}><img src={data.images.uri} width={data.images.width} height={data.images.height} alt={data.title} /></Link>}
       </div>
       <div>
         <span>Title</span>

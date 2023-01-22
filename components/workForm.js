@@ -33,7 +33,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const putData = async (form) => {
 
     try {
-      const res = await fetch(`http://192.168.0.18:8000/api/artwork/${id}`, {
+      const res = await fetch(`http://192.168.0.18:9000/api/artworks/${id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,
@@ -49,7 +49,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
       const { data } = await res.json()
 
-      mutate(`/api/artwork/${id}`, data, false) // Update the local data without a revalidation
+      mutate(`/api/artworks/${id}`, data, false) // Update the local data without a revalidation
       router.push('/')
     } catch (error) {
       setMessage('Failed to update work')
@@ -59,7 +59,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form) => {
     try {
-      const res = await fetch('http://192.168.0.18:8000/api/add', {
+      const res = await fetch(`http://192.168.0.18:9000/api/artworks`, {
         method: 'POST',
         headers: {
           Accept: contentType,
@@ -156,7 +156,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
         <div className={styles.uploadContainer}>
           <label htmlFor="image">⬆️ Artwork Image Upload</label>
-          <input type="file" id="image" name="image" onChange={handleChange} />
+          <input type="file" id="image" name="image" value="" onChange={handleChange} />
         </div>
         
         <div className={styles.uploadField}>

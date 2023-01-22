@@ -13,7 +13,6 @@ export default function Home(props) {
     noWork = <h2>All Works</h2>
   }
 
-
   return (
     <>
       <div className={styles.main}>
