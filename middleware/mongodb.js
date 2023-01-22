@@ -1,4 +1,7 @@
 // lib/mongodb.js
+
+// maybe we delete this, keeping here in case something uses it
+
 import { MongoClient } from 'mongodb'
 
 const uri = process.env.ATLAS_URI
@@ -26,3 +29,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default clientPromise
+

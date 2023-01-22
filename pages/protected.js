@@ -1,37 +1,60 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useSession } from "next-auth/react"
-import Link from "next/link"
-import Layout from "../components/layout"
+import useSWR from "swr"
+import Link from 'next/link'
+
+import Work from "../components/workBox"
+import styles from '../styles/Home.module.css'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function ProtectedPage() {
   const { data: session } = useSession()
   const [content, setContent] = useState()
 
-  // Fetch content from protected route
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("/api/examples/protected")
-      const json = await res.json()
-      if (json.content) {
-        setContent(json.content)
-      }
-    }
-    fetchData()
-  }, [session])
- 
+  // new SWR fetching - checking if causing bug
+  const { artwork, isLoading, isError } = getData('http://192.168.0.18:9000/api/artwork');
+  
+
+  if (isError) return <h2>error finding data</h2>
+  if (isLoading) return <h2>loading...!</h2>
+
+  console.log(artwork);
 
   // If no session exists, display access denied message
   if (!session) {
     return (
-      <h1>Please <Link href='/api/auth/signin'>sign in</Link>.</h1>
+      <>
+        <h1>Please <Link href='/api/auth/signin'>sign in</Link>.</h1>
+        <br />
+        <img src="/casper.gif" />
+      </>
     )
   }
-
-  // If session exists, display content
+  
   return (
     <>
-      <h1>Protected Page</h1>
-      <img src="/casper.gif" />
+      <div className={styles.main}>
+        <h2>All Works</h2>
+        {artwork.map(data => {
+          return (
+            <div key={data._id} className={styles.singleWork}>
+              <Work data={data} showLink />
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }
+
+  // custom middleware to improve SWR functionality and provide user / loading / error responses
+  const getData = (key) => {
+    const {data, error} = useSWR(key, fetcher)
+
+    return {
+      artwork: data,
+      isLoading: !error && !data,
+      isError: error,
+    }
+  }

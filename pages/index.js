@@ -1,31 +1,18 @@
-import Image from 'next/image'
-import Link from 'next/link'
-
-import {useEffect, useState} from "react";
-import axios from "axios";
 import styles from '../styles/Home.module.css'
 
 import Work from '../components/workBox'
 
-export default function Home() {
-  const url = 'http://192.168.0.18:8000/api';
-  const [work, setWork] = useState([]);
+export default function Home(props) {
 
   let noWork;
-
-  useEffect(() => {
-    axios.get(url).then(res => {
-      setWork(res.data);
-    })
-  }, [])
-
-  // console.log(work)
+  let work = props.artworks;
 
   if (work.length == 0) {
     noWork = <h1>No artworks found</h1>
   } else {
     noWork = <h2>All Works</h2>
   }
+
 
   return (
     <>
@@ -42,3 +29,29 @@ export default function Home() {
     </>
   )
 };
+
+
+async function getData() {
+  const url = 'http://192.168.0.18:9000/api/artwork';
+  let fetched;
+  await fetch(url)
+    .then((response) => response.json())
+    .then((data) => fetched = data);
+  // console.log(fetched);
+  return fetched;
+}
+
+export const getStaticProps = async (context) => {
+  const data = await getData();
+
+  if (!data) {
+    return {
+      props: { hasError: true },
+    }
+  }
+  return {
+    props: {
+      artworks: data
+    }
+  }
+}

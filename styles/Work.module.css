@@ -1,10 +1,9 @@
 .gate {
   width: 100%;
-  max-width: 1180px;
   padding: 5px;
   display: grid;
   grid-template-rows: repeat(10, 1fr);
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(467px, 1fr));
   grid-gap: 5px;
   background-color: #111;
   box-shadow:
