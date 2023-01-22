@@ -34,7 +34,7 @@ const Work = ({ data, showLink, deleteAble }) => {
       <a href="#" onClick={handleDelete}>delete</a>
     )
   } else {
-    deleter = "No delete here!";
+    deleter = "No delete on this here route!";
   }
   
   return (

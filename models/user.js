@@ -16,11 +16,11 @@ const userModel = new mongoose.Schema({
     required: true,
     unique: false,
   },
-  avatar: {
-    type: String,
-    required: false,
-    unique: false,
-  },
+  // avatar: {
+  //   type: String,
+  //   required: false,
+  //   unique: false,
+  // },
   // artworks: {
 
   // },
@@ -30,10 +30,10 @@ const userModel = new mongoose.Schema({
   // series: {
 
   // },
-  subscriber: {
-    type: Boolean,
-    default: false,
-  },
+  // subscriber: {
+  //   type: Boolean,
+  //   default: false,
+  // },
 }, { timestamps: true, });
 
 const user = mongoose.model("User", userModel);

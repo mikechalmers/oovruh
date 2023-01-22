@@ -39,7 +39,7 @@ export default function ProtectedPage() {
         {artwork.map(data => {
           return (
             <div key={data._id} className={styles.singleWork}>
-              <Work data={data} showLink />
+              <Work data={data} deleteAble showLink />
             </div>
           )
         })}
