@@ -31,3 +31,11 @@
 .navButton:hover {
   background: var(--red);
 }
+
+.logoHeading {
+  background: linear-gradient(to bottom right, var(--blue), var(--red));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}

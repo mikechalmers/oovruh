@@ -52,13 +52,13 @@ const Work = ({ data, showLink, deleteAble }) => {
       <div>six</div>
       <div>sev</div>
       <div>
-        { deleteAble ?  <a href="#" onClick={handleDelete}>delete</a> : "No delete on this hyah route!"}
       </div>
       <div>
-        { showLink && <Link href={`/artwork/${data._id}/edit/`}>edit</Link> }
       </div>
-      <div>
-        { showLink && <Link href={`/artwork/${data._id}`}>permalink</Link> }
+      <div className={styles.meta}>
+        { showLink && <Link href={`/artwork/${data._id}`} className={styles.pill}>permalink</Link> }
+        { showLink && <Link href={`/artwork/${data._id}/edit/`} className={styles.pill}>edit</Link> }
+        { deleteAble &&  <a href="#" onClick={handleDelete} className={styles.pill}>delete</a>}
       </div>
     </div>
   )

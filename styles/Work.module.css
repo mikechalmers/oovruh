@@ -53,3 +53,25 @@
   text-transform: uppercase;
   padding: 0.4em;
 }
+
+.meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pill {
+  background: linear-gradient(to bottom right, var(--blue), var(--red));
+  padding: 0.2em 0.6em;
+  border-radius: 12px;
+  color: white !important;
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.5;
+}
+
+.pill:hover {
+  opacity: 1;
+}
