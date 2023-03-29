@@ -1,4 +1,4 @@
-// based on https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/components/Form.js
+ // based on https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/components/Form.js
 
 import { useState } from 'react'
 import { useRouter } from 'next/router'
@@ -152,7 +152,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
       <form id={formId} className={styles.uploadForm} onSubmit={handleSubmit}>
         <img src='/art.svg' alt='art' className={styles.uploadHero} />
 
-        {form.images.uri && <img src={form.images.uri} />}
+        {form.images.uri && <img src={form.images.uri} className={styles.uploadedImage} />}
 
         <div className={styles.uploadContainer}>
           <label htmlFor="image">⬆️ Artwork Image Upload</label>

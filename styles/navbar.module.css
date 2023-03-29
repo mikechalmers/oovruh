@@ -39,3 +39,7 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+.cleanLink {
+  text-decoration: none;
+}

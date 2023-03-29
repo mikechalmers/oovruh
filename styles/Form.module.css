@@ -17,6 +17,10 @@
   padding-bottom: 3em;
 }
 
+.uploadedImage {
+  max-width: 100%;
+}
+
 .uploadField {
   width: 100%;
 }
