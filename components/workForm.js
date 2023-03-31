@@ -148,7 +148,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   }
 
   return (
-    <>
+    <div className={styles.formContainer}>
       <form id={formId} className={styles.uploadForm} onSubmit={handleSubmit}>
         <img src='/art.svg' alt='art' className={styles.uploadHero} />
 
@@ -205,7 +205,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           <li key={index}>{err}</li>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

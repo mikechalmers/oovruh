@@ -5,14 +5,14 @@
   grid-template-rows: repeat(10, 1fr);
   grid-template-columns: repeat(auto-fit, minmax(467px, 1fr));
   grid-gap: 5px;
-  background-color: #111;
-  box-shadow:
+  background-color: var(--dark);
+  /* box-shadow:
     2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
     6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
     12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
+    100px 100px 80px rgba(0, 0, 0, 0.07); */
 }
 
 .gate>* {
@@ -43,8 +43,8 @@
 
 .gate div span {
   position: absolute;
-  border: 5px solid #111;
-  background: #111;
+  border: 5px solid var(--dark);
+  background: var(--dark);
   color: #fff;
   top: 0;
   right: 0;
@@ -63,15 +63,20 @@
 }
 
 .pill {
-  background: linear-gradient(to bottom right, var(--blue), var(--red));
-  padding: 0.2em 0.6em;
-  border-radius: 12px;
+  /* padding: 0.3em 1em; */
+  /* background: linear-gradient(to bottom right, var(--blue), var(--red)); */
+  padding: 0.4em 0.8em;
+  background: var(--dark);
+  border-radius: 8px;
   color: white !important;
   font-size: 0.9rem;
   text-decoration: none;
-  opacity: 0.5;
+  opacity: 1;
+
+  font-size: 0.6em;
+  text-transform: uppercase;
 }
 
 .pill:hover {
-  opacity: 1;
+  opacity: 0.6;
 }

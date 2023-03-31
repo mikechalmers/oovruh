@@ -1,0 +1,7 @@
+.footer {
+  padding-block: 0.6em;
+  text-align: center;
+  border-top: 5px solid var(--dark);
+  max-width: 1282px;
+  margin-inline: auto;
+}

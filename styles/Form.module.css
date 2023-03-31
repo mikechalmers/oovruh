@@ -1,3 +1,9 @@
+.formContainer {
+  width: 100%;
+  max-width: 1282px;
+  background: var(--red);
+}
+
 .uploadForm {
   display: flex;
   flex-direction: column;
@@ -10,7 +16,7 @@
   width: 100%;
   max-width: 600px;
   margin-inline: auto;
-  margin-top: 6em;
+  /* margin-top: 6em; */
 }
 
 .uploadHero {
@@ -28,7 +34,7 @@
 .uploadForm input[type="text"],
 .uploadForm button,
 .uploadContainer {
-  border: 5px solid #111;
+  border: 5px solid var(--dark);
   height: 4em;
   width: 100%;
   display: flex;
@@ -79,8 +85,7 @@
 }
 
 .uploadForm .tabbedLabel {
-  /* border: 5px solid #111; */
-  background: #111;
+  background: var(--dark);
   color: #fff;
   transform: translate(5px, -5px);
   font-size: 0.7em;

@@ -1,13 +1,39 @@
 .navbar {
   display: flex;
   gap: 1em;
-  padding: 1em;
+  padding: 0.5em;
   justify-content: space-between;
   align-items: center;
-  background: rgba(200, 200, 200, 0.5);
+  /* background: rgba(200, 200, 200, 0.5); */
+  /* background: var(--dark); */
+  /* background: var(--cool); */
+  background: white;
   position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-bottom: 5px solid var(--dark);
   z-index: 5;
   width: 100%;
+  /* color: #f1f1f1; */
+  color: var(--dark);
+  max-width: 1282px;
+  margin-inline: auto;
+}
+
+.navMenuItem {
+  background: linear-gradient(to bottom right, var(--blue), var(--red));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+}
+
+.navMenuItem:hover {
+  background: linear-gradient(to bottom right, var(--dark), var(--dark));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
 }
 
 .meta {
@@ -22,7 +48,7 @@
 }
 
 .navButton {
-  border: 5px solid #111;
+  border: 5px solid var(--dark);
   padding: 5px;
   cursor: pointer;
   transition: var(--transText);
@@ -34,6 +60,14 @@
 
 .logoHeading {
   background: linear-gradient(to bottom right, var(--blue), var(--red));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.logoHeading:hover {
+  background: var(--dark);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

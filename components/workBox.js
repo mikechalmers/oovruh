@@ -34,7 +34,7 @@ const Work = ({ data, showLink, deleteAble }) => {
       </div>
       <div>
         <span>Title</span>
-        {data.title}
+        <strong>{data.title}</strong>
       </div>
       <div>
         <span>Year</span>
