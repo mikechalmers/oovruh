@@ -1,21 +1,35 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
+import validator from 'validator'
 
-const userModel = new mongoose.Schema({
+
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
-  },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
+    unique: [true, "Account already exists"],
+    validate: [validator.isEmail, 'Please enter a valid email']
   },
   password: {
     type: String,
-    required: true,
-    unique: false,
+    required: [true, "Please enter your email"],
+    minLength: [6, "Your password must be at least 6 characters long"],
+    select: false, //dont send back password after request
   },
+  role: {
+    type: String,
+    default: 'user',
+    enum: {
+        values: [
+            'user',
+            'admin'
+        ],
+    }
+},
+createdAt: {
+    type: Date,
+    default: Date.now
+},
   // avatar: {
   //   type: String,
   //   required: false,
@@ -34,7 +48,19 @@ const userModel = new mongoose.Schema({
   //   type: Boolean,
   //   default: false,
   // },
-}, { timestamps: true, });
+});
 
-const user = mongoose.model("User", userModel);
-module.exports = user;
+// ENCRYPTION 
+userSchema.pre('save', async function(next){
+    if(!this.isModified('password')){
+        next()
+    }
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+})
+
+userSchema.methods.comparePassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password)
+}
+
+export default mongoose.models.User || mongoose.model('User', userSchema)

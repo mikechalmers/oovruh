@@ -10,7 +10,7 @@ export default function Home(props) {
   if (work.length == 0) {
     noWork = <h1>No artworks found</h1>
   } else {
-    noWork = <h1>Michael Chalmers / All Works</h1>
+    noWork = <h1>All Works</h1>
   }
 
   return (

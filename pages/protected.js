@@ -11,7 +11,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function ProtectedPage() {
   const { data: session } = useSession()
 
-  console.log('Session user: ', session.user);
+  // console.log('Session user: ', session.user);
 
   // new SWR fetching
   const { artwork, isLoading, isError } = getData('http://192.168.0.18:9000/api/artworks/');
