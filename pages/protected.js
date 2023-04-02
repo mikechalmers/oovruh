@@ -11,6 +11,8 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function ProtectedPage() {
   const { data: session } = useSession()
 
+  console.log('Session user: ', session.user);
+
   // new SWR fetching
   const { artwork, isLoading, isError } = getData('http://192.168.0.18:9000/api/artworks/');
 
@@ -32,7 +34,7 @@ export default function ProtectedPage() {
   
   return (
       <div className={styles.main}>
-        <h2>All Works</h2>
+        <h1>{session.user.email} / All Works</h1>
         {artwork.map(data => {
           return (
             <div key={data._id} className={styles.singleWork}>

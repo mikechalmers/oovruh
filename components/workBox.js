@@ -48,8 +48,14 @@ const Work = ({ data, showLink, deleteAble }) => {
         <span>Image Alt Text</span>
         {data.images.alt}
       </div>
-      <div>fiv</div>
-      <div>six</div>
+      <div>
+        <span>Collection</span>
+        fiv
+      </div>
+      <div>
+        <span>Series</span>
+        six
+      </div>
       <div>sev</div>
       <div>
       </div>
