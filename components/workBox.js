@@ -64,7 +64,7 @@ const Work = ({ data, showLink, deleteAble }) => {
       <div>
       </div>
       <div className={styles.meta}>
-        { showLink && data.user && <Link href={`api/users/${data.user}`} className={styles.pill}>artist</Link> }
+        { showLink && data.user && <Link href={`api/users/${data.user._id}`} className={styles.pill}>artist</Link> }
         { showLink && <Link href={`/artwork/${data._id}`} className={styles.pill}>permalink</Link> }
         { showLink && <Link href={`/artwork/${data._id}/edit/`} className={styles.pill}>edit</Link> }
         { deleteAble &&  <a href="#" onClick={handleDelete} className={styles.pill}>delete</a>}
