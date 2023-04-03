@@ -38,7 +38,7 @@ export default NextAuth({
             
         })
     ],
-    // All of this is just to add user information to be accessible for our app in the token/session
+    // add user information to be accessible for our app in the token/session
     callbacks: {
         // We can pass in additional information from the user document MongoDB returns
         // This could be avatars, role, display name, etc...

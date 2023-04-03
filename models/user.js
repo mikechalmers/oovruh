@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
@@ -25,24 +25,28 @@ const userSchema = new mongoose.Schema({
             'admin'
         ],
     }
-},
-createdAt: {
-    type: Date,
-    default: Date.now
-},
+  },
+  fullName: {
+    type: String,
+    required: false,
+    default: 'No Name'
+  },
+  profileImage: {
+    type: String,
+    required: false,
+  },
+  artworks: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Artwork',
+  }],
+  createdAt: {
+      type: Date,
+      default: Date.now
+  },
   // avatar: {
   //   type: String,
   //   required: false,
   //   unique: false,
-  // },
-  // artworks: {
-
-  // },
-  // collections: {
-
-  // },
-  // series: {
-
   // },
   // subscriber: {
   //   type: Boolean,

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const artworkSchema = new mongoose.Schema({
 	title: {
@@ -18,11 +19,8 @@ const artworkSchema = new mongoose.Schema({
     unique: false,
   },
   user: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    },
-    required: false,
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 });
 

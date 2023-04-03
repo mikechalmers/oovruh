@@ -6,12 +6,14 @@ handler
   .post(createUser)
 
 async function createUser(req, res) {
-
-  const data = req.body;
-
-  const { email, password } = data;
-
+  
+  // const data = req.body;
+  
+  // const { email, password } = data;
+  
   dbConnect();
+  
+  console.log("User.create submits: ", req.body)
 
   const user = await User.create(req.body)
 

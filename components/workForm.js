@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 
+import { useSession } from 'next-auth/react';
+
 import { useS3Upload, getImageData } from 'next-s3-upload';
 
 import styles from '../styles/Form.module.css'
@@ -16,6 +18,9 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   let { uploadToS3 } = useS3Upload();
 
+  const { data: session, status } = useSession()
+  // console.log(session, status)
+
   const id = router.query._id;
 
   const [form, setForm] = useState({
@@ -27,6 +32,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
       width: workForm.images.width,
       height: workForm.images.height,
     },
+    user: session?.user?._id
   })
 
   /* The PUT method edits an existing entry in the mongodb database. */
@@ -132,6 +138,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
     let err = {}
     if (!form.title) err.title = 'Title is required'
     if (!form.images.uri) err.title = 'Image is required'
+    if (!session?.user?._id) err.title = 'You need to login'
     return err
   }
 
