@@ -16,7 +16,7 @@ export default function ProtectedPage() {
   const { artwork, isLoading, isError } = getData(`http://192.168.0.18:9000/api/profile`);
   let usersArt;
 
-  if (isError) return <h2>error finding data</h2>
+  if (session && isError) return <h2>error finding data</h2>
   if (isLoading) return <h2>loading...!</h2>
 
   // If no session exists, display access denied message
