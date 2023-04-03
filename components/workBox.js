@@ -1,10 +1,14 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSession } from "next-auth/react"
 
 import styles from '../styles/Work.module.css'
 
 const Work = ({ data, showLink, deleteAble }) => {
   const router = useRouter()
+  const { data: session } = useSession()
+
+  console.log(data)
 
   const deleteWork = async (id) => {
     try {
@@ -27,7 +31,7 @@ const Work = ({ data, showLink, deleteAble }) => {
     deleteWork(data._id);
   }
 
-  // console.log(data);
+  // console.log(session?.user?._id);
   
   return (
     <div className={styles.gate}>
@@ -58,7 +62,10 @@ const Work = ({ data, showLink, deleteAble }) => {
         <span>Series</span>
         six
       </div>
-      <div>sev</div>
+      <div>
+        <span>Artist</span>
+        <Link href={`/api/users/${data.user._id}`}>{data.user.fullName}</Link>
+      </div>
       <div>
       </div>
       <div>
@@ -66,8 +73,8 @@ const Work = ({ data, showLink, deleteAble }) => {
       <div className={styles.meta}>
         { showLink && data.user && <Link href={`api/users/${data.user._id}`} className={styles.pill}>artist</Link> }
         { showLink && <Link href={`/artwork/${data._id}`} className={styles.pill}>permalink</Link> }
-        { showLink && <Link href={`/artwork/${data._id}/edit/`} className={styles.pill}>edit</Link> }
-        { deleteAble &&  <a href="#" onClick={handleDelete} className={styles.pill}>delete</a>}
+        { showLink && session?.user?._id === data?.user?._id && <Link href={`/artwork/${data._id}/edit/`} className={styles.pill}>edit</Link> }
+        { deleteAble && session?.user?._id === data?.user?._id &&  <a href="#" onClick={handleDelete} className={styles.pill}>delete</a>}
       </div>
     </div>
   )
