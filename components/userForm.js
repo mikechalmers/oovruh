@@ -3,11 +3,19 @@ import { useRouter } from 'next/router'
 import { mutate } from 'swr'
 import { useSession } from "next-auth/react"
 
+import styles from '../styles/User.module.css'
+
 const UserForm = ({ formId, userData }) => {
+  const [message, setMessage] = useState('')
+  const [errors, setErrors] = useState({})
+
   const [form, setForm] = useState({
     fullName: userData.fullName,
     email: userData.email,
   })
+
+  const id = userData._id
+  const contentType = 'application/json'
 
   const { data: session, status } = useSession()
 
@@ -39,8 +47,14 @@ const UserForm = ({ formId, userData }) => {
 
   // If a user changes form inputs
   const handleChange = async(e) => {
+    const target = e.target
+    const value = target.value
+    const name = target.name
 
-
+    setForm({
+      ...form,
+      [name]: value,
+    })
   }
 
   /* Makes sure necessary info is filled */
@@ -56,14 +70,14 @@ const UserForm = ({ formId, userData }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('User update submitted: ', form);
-    // const errs = formValidate()
-    // if (Object.keys(errs).length === 0) {
-    //   putData(form)
-    // } else {
-    //   setErrors(errs)
-    //   console.log("Submission errors: ", errors)
-    // }
-    putData(form, id)
+    const errs = formValidate()
+    if (Object.keys(errs).length === 0) {
+      putData(form, id)
+    } else {
+      setErrors(errs)
+      console.log("Submission errors: ", errors)
+    }
+    // putData(form, id)
   }
 
   if (status === "loading") {
@@ -78,15 +92,15 @@ const UserForm = ({ formId, userData }) => {
 
   return (
     <div>
-      <form id={formId}>
+      <form id={formId} className={styles.userForm} onSubmit={handleSubmit}>
 
         <div>
           <label htmlFor="fullName">Full Name</label>
           <input
             type="text"
             maxLength="250"
-            name="alt"
-            value={userData.fullName}
+            name="fullName"
+            value={form.fullName}
             onChange={handleChange}
             required
           />
@@ -97,8 +111,8 @@ const UserForm = ({ formId, userData }) => {
           <input
             type="email"
             maxLength="250"
-            name="alt"
-            value={userData.email}
+            name="email"
+            value={form.email}
             onChange={handleChange}
             required
           />
@@ -109,6 +123,12 @@ const UserForm = ({ formId, userData }) => {
         </button>
 
       </form>
+      <p>{message}</p>
+      <div>
+        {Object.keys(errors).map((err, index) => (
+          <li key={index}>{err}</li>
+        ))}
+      </div>
     </div>
   );
 }
