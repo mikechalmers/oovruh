@@ -16,12 +16,12 @@ async function protectedAPI(req, res, next) {
   await dbConnect()
 
   try {
-    const user = await User.findById(session.user._id).populate('artworks')
+    const user = await User.findById(session.user._id)
     console.log(user)
     if (!user) {
       return res.status(400).json({ success: false })
     }
-    res.status(200).json({ success: true, artworks: user.artworks })
+    res.status(200).json( user )
   } catch (error) {
     res.status(400).json({ success: false })
   }

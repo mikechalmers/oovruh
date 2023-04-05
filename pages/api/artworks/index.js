@@ -11,6 +11,7 @@ export default async function handler (req, res) {
     case 'GET':
       try {
         const artworks = await Artwork.find({}).populate('user')
+        console.log(artworks)
         res.status(200).json( artworks )
       } catch (error) {
         res.status(400).json({ success: false })

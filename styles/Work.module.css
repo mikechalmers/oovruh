@@ -20,9 +20,9 @@
   padding: 0.5em;
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .workitem {
@@ -42,16 +42,17 @@
 }
 
 .gate div span {
-  position: absolute;
+  /* position: absolute; */
   border: 5px solid var(--dark);
   background: var(--dark);
   color: #fff;
-  top: 0;
-  right: 0;
-  transform: translate(5px, -5px);
+  /* top: 0; */
+  left: 0;
+  /* transform: translate(5px, -5px); */
   font-size: 0.6em;
   text-transform: uppercase;
-  padding: 0.4em;
+  padding: 0.2em;
+  margin-left: 2em;
 }
 
 .meta {
