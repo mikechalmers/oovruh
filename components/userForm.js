@@ -1,7 +1,70 @@
-import { useSession, getSession } from "next-auth/react"
+import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { mutate } from 'swr'
+import { useSession } from "next-auth/react"
 
-export default function Page() {
+const UserForm = ({ formId, userData }) => {
+  const [form, setForm] = useState({
+    fullName: userData.fullName,
+    email: userData.email,
+  })
+
   const { data: session, status } = useSession()
+
+  /* The PUT method edits an existing entry in the mongodb database. */
+  const putData = async (form, id) => {
+    try {
+      const res = await fetch(`http://192.168.0.18:9000/api/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          Accept: contentType,
+          'Content-Type': contentType,
+        },
+        body: JSON.stringify(form),
+      })
+
+      // Throw error with status code in case Fetch API req failed
+      if (!res.ok) {
+        throw new Error(res.status)
+      }
+
+      const { data } = await res.json()
+
+      mutate(`/api/users/${id}`, data, false) // Update the local data without a revalidation
+      router.push('/')
+    } catch (error) {
+      setMessage('Failed to update work')
+    }
+  }
+
+  // If a user changes form inputs
+  const handleChange = async(e) => {
+
+
+  }
+
+  /* Makes sure necessary info is filled */
+  const formValidate = () => {
+    let err = {}
+    if (!form.fullName) err.fullName = 'A name is required'
+    if (!form.email) err.email = 'Email is required'
+    if (!session?.user?._id) err.title = 'You need to login'
+    return err
+  }
+  
+  // SUBMIT form
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('User update submitted: ', form);
+    // const errs = formValidate()
+    // if (Object.keys(errs).length === 0) {
+    //   putData(form)
+    // } else {
+    //   setErrors(errs)
+    //   console.log("Submission errors: ", errors)
+    // }
+    putData(form, id)
+  }
 
   if (status === "loading") {
     return <p>Loading...</p>
@@ -11,10 +74,43 @@ export default function Page() {
     return <p>Access Denied</p>
   }
 
+  // console.log("userData in userForm is: ", userData)
+
   return (
-    <>
-      <h1>Protected Page</h1>
-      <p>You can view this page because you are signed in.</p>
-    </>
-  )
+    <div>
+      <form id={formId}>
+
+        <div>
+          <label htmlFor="fullName">Full Name</label>
+          <input
+            type="text"
+            maxLength="250"
+            name="alt"
+            value={userData.fullName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            maxLength="250"
+            name="alt"
+            value={userData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn">
+          ⏭️ Submit
+        </button>
+
+      </form>
+    </div>
+  );
 }
+
+export default UserForm

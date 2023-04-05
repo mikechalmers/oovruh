@@ -1,24 +1,7 @@
+// adapted from chatgpt conversation 5.4.23
+
 import { useState, useEffect } from 'react';
-
-async function getUserData() {
-  try {
-    const res = await fetch('http://192.168.0.18:9000/api/userProfile/');
-    if (!res.ok) {
-      throw new Error('User probably not logged in')
-    }
-    const userData = await res.json();
-    return userData;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-
-}
-
-const handleChange = async(e) => {
-
-
-}
+import UserForm from '../../components/userForm'
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
@@ -35,6 +18,7 @@ export default function UserProfile() {
     }
     fetchData();
   }, []);
+  
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -44,36 +28,26 @@ export default function UserProfile() {
     return <div>Loading...</div>;
   }
 
-  console.log(userData)
+  const id = userData._id;
 
-  return (
-    <div>
-      <form>
-        <div>
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            maxLength="250"
-            name="alt"
-            value={userData.fullName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email Address</label>
-          <input
-            type="email"
-            maxLength="250"
-            name="alt"
-            value={userData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-      </form>
-      
-      
-    </div>
-  );
+  // console.log("userData on profile", userData)
+
+  return <UserForm formId="edit-user-profile" userData={userData}/>
 }
+
+// GET the user's data from the API (database)
+async function getUserData() {
+  try {
+    const res = await fetch('http://192.168.0.18:9000/api/userProfile/');
+    if (!res.ok) {
+      throw new Error('User probably not logged in')
+    }
+    const userData = await res.json();
+    return userData;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}
+
