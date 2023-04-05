@@ -30,8 +30,8 @@ export default function ProtectedPage() {
   }
 
   if (artwork) {
-    // console.log(artwork.data.artworks);
-    usersArt = artwork.data.artworks;
+    // console.log(artwork.artworks);
+    usersArt = artwork.artworks;
   }
   
   return (
@@ -40,7 +40,7 @@ export default function ProtectedPage() {
       {usersArt.map(data => {
         return (
           <div key={data._id} className={styles.singleWork}>
-            <Work data={data} deleteAble showLink />
+            <Work data={data} deleteAble showLink isOwner />
           </div>
         )
       })}

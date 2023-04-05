@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET' /* Get a model by its ID */:
       try {
-        const artwork = await Artwork.findById(id)
+        const artwork = await Artwork.findById(id).populate('user')
         if (!artwork) {
           return res.status(400).json({ success: false })
         }

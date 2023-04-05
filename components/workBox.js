@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 
 import styles from '../styles/Work.module.css'
 
-const Work = ({ data, showLink, deleteAble }) => {
+const Work = ({ data, showLink, deleteAble, isOwner }) => {
   const router = useRouter()
   const { data: session } = useSession()
 
@@ -64,7 +64,10 @@ const Work = ({ data, showLink, deleteAble }) => {
       </div>
       <div>
         <span>Artist</span>
-        <Link href={`/api/users/${data.user._id}`}>{data.user.fullName}</Link>
+        <div>
+          <Link href={`/api/users/${data.user._id}`}>{data.user.fullName}</Link>
+          {(data.user._id ===  session?.user?._id) || isOwner ? ' 🥤' : ''}
+        </div>
       </div>
       <div>
       </div>

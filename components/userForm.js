@@ -39,7 +39,7 @@ const UserForm = ({ formId, userData }) => {
       const { data } = await res.json()
 
       mutate(`/api/users/${id}`, data, false) // Update the local data without a revalidation
-      router.push('/')
+      setMessage('✅')
     } catch (error) {
       setMessage('Failed to update work')
     }
@@ -91,10 +91,11 @@ const UserForm = ({ formId, userData }) => {
   // console.log("userData in userForm is: ", userData)
 
   return (
-    <div>
+    <div className={styles.profileContainer}>
+      <h1>Profile</h1>
       <form id={formId} className={styles.userForm} onSubmit={handleSubmit}>
 
-        <div>
+        <div className={styles.userField}>
           <label htmlFor="fullName">Full Name</label>
           <input
             type="text"
@@ -106,7 +107,7 @@ const UserForm = ({ formId, userData }) => {
           />
         </div>
 
-        <div>
+        <div className={styles.userField}>
           <label htmlFor="email">Email Address</label>
           <input
             type="email"
