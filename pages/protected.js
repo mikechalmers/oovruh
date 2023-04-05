@@ -36,7 +36,7 @@ export default function ProtectedPage() {
   
   return (
     <div className={styles.main}>
-      <h1>{session.user.email} / All Works</h1>
+      <h1>{session.user.name} / All Works</h1>
       {usersArt.map(data => {
         return (
           <div key={data._id} className={styles.singleWork}>

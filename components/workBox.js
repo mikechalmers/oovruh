@@ -8,7 +8,7 @@ const Work = ({ data, showLink, deleteAble, isOwner }) => {
   const router = useRouter()
   const { data: session } = useSession()
 
-  console.log(data)
+  // console.log(data)
 
   const deleteWork = async (id) => {
     try {

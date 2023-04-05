@@ -4,10 +4,10 @@
   justify-content: flex-start;
   /* align-items: center; */
   /* gap: 6em; */
-  padding: 2rem 4%;
+  padding-block: 2rem;
   min-height: calc(100vh - 110px);
   width: 100%;
-  max-width: 1400px;
+  max-width: 1282px;
 }
 
 .singleWork {
