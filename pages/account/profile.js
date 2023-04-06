@@ -1,11 +1,14 @@
 // adapted from chatgpt conversation 5.4.23
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import UserForm from '../../components/userForm'
 
 export default function UserProfile() {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
+
+  const router = useRouter()
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +24,8 @@ export default function UserProfile() {
   
 
   if (error) {
-    return <div>Error: {error}</div>;
+    // return <div>Error: {error}</div>;
+    router.push('/login');
   }
 
   if (!userData) {

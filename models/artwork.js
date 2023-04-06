@@ -22,6 +22,11 @@ const artworkSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
+  tags: {
+    type: [String],
+    required: false,
+    unique: false,
+  }
 });
 
 module.exports = mongoose.models.Artwork || mongoose.model("Artwork", artworkSchema);

@@ -15,6 +15,10 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const contentType = 'application/json'
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
+  
+  // const [tags, setTags] = useState(workForm.tags.toString());
+
+  // console.log("tags: ", workForm.tags)
 
   let { uploadToS3 } = useS3Upload();
 
@@ -32,6 +36,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
       width: workForm.images.width,
       height: workForm.images.height,
     },
+    tags: [workForm.tags],
     user: session?.user?._id
   })
 
@@ -137,13 +142,23 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const formValidate = () => {
     let err = {}
     if (!form.title) err.title = 'Title is required'
-    if (!form.images.uri) err.title = 'Image is required'
-    if (!session?.user?._id) err.title = 'You need to login'
+    if (!form.images.uri) err.image = 'Image is required'
+    if (!session?.user?._id) err.user = 'You need to login'
     return err
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    // update the tags entry from string to array, split by comma
+
+    const tagsArray = workForm.tags.split(',').map((tag) => tag.trim());
+
+    setForm({
+      ...form,
+      tags: tagsArray,
+    })
+
     console.log('Artwork submitted: ', form);
     const errs = formValidate()
     if (Object.keys(errs).length === 0) {
@@ -161,11 +176,35 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
         {form.images.uri && <img src={form.images.uri} className={styles.uploadedImage} />}
 
+        <div className={styles.uploadField}>
+          <label htmlFor="title" className={styles.tabbedLabel}>Title</label>
+          <input
+            type="text"
+            maxLength="250"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            
+          />
+        </div>
+
         <div className={styles.uploadContainer}>
-          <label htmlFor="image">⬆️ Artwork Image Upload</label>
+          <label htmlFor="image">⬆️ Upload Image</label>
           <input type="file" id="image" name="image" value="" onChange={handleChange} />
         </div>
-        
+
+        <div className={styles.uploadField}>
+          <label htmlFor="year" className={styles.tabbedLabel}>Year</label>
+          <input
+            type="text"
+            maxLength="4"
+            name="year"
+            value={form.year}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <div className={styles.uploadField}>
           <label htmlFor="alt" className={styles.tabbedLabel}>Image Alt Tag</label>
           <input
@@ -174,44 +213,36 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
             name="alt"
             value={form.images.alt}
             onChange={handleChange}
+            placeholder="describe the artwork's appearance"
             required
           />
         </div>
 
         <div className={styles.uploadField}>
-          <label htmlFor="title" className={styles.tabbedLabel}>Title</label>
+          <label htmlFor="tags" className={styles.tabbedLabel}>Tags</label>
           <input
             type="text"
-            maxLength="20"
-            name="title"
-            value={form.title}
+            maxLength="250"
+            name="tags"
+            value={form.tags}
             onChange={handleChange}
-            
-          />
-        </div>
-
-        <div className={styles.uploadField}>
-          <label htmlFor="year" className={styles.tabbedLabel}>Year</label>
-          <input
-            type="text"
-            maxLength="20"
-            name="year"
-            value={form.year}
-            onChange={handleChange}
-            required
+            placeholder="enter a comma-separated list"
           />
         </div>
 
         <button type="submit" className="btn">
           ⏭️ Submit
         </button>
-      </form>
       <p>{message}</p>
       <div>
-        {Object.keys(errors).map((err, index) => (
-          <li key={index}>{err}</li>
-        ))}
+        <ol>
+          {Object.keys(errors).length === 0 ? '' : 'You have a missing:'}
+          {Object.keys(errors).map((err, index) => (
+            <li key={index}>{err}</li>
+          ))}
+        </ol>
       </div>
+      </form>
     </div>
   )
 }

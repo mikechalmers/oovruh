@@ -96,7 +96,7 @@ const UserForm = ({ formId, userData }) => {
       <form id={formId} className={styles.userForm} onSubmit={handleSubmit}>
 
         <div className={styles.userField}>
-          <label htmlFor="fullName">Full Name</label>
+          <label htmlFor="fullName" className={styles.tagLabel}>Full Name</label>
           <input
             type="text"
             maxLength="250"
@@ -108,7 +108,7 @@ const UserForm = ({ formId, userData }) => {
         </div>
 
         <div className={styles.userField}>
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="email" className={styles.tagLabel}>Email Address</label>
           <input
             type="email"
             maxLength="250"

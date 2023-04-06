@@ -31,7 +31,8 @@ const Work = ({ data, showLink, deleteAble, isOwner }) => {
     deleteWork(data._id);
   }
 
-  // console.log(session?.user?._id);
+  // console.log(session?.user);
+  // console.log(data);
   
   return (
     <div className={styles.gate}>

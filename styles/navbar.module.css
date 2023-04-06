@@ -1,7 +1,7 @@
 .navbar {
   display: flex;
   gap: 1em;
-  padding: 0.5em;
+  /* padding: 0.5em; */
   justify-content: space-between;
   align-items: center;
   /* background: rgba(200, 200, 200, 0.5); */
@@ -20,20 +20,26 @@
   margin-inline: auto;
 }
 
-.navMenuItem {
-  background: linear-gradient(to bottom right, var(--blue), var(--red));
+.navMenuItem:link,
+.navMenuItem:visited {
+  /* background: linear-gradient(to bottom right, var(--blue), var(--red));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent !important;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  text-decoration: none;
+  color: var(--dark);
+  line-height: 1.5em;
+  border-bottom: 3px solid var(--dark);
 }
 
 .navMenuItem:hover {
-  background: linear-gradient(to bottom right, var(--dark), var(--dark));
+  /* background: linear-gradient(to bottom right, var(--dark), var(--dark));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent !important;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  color: var(--red)
 }
 
 .meta {
@@ -59,19 +65,23 @@
 }
 
 .logoHeading {
-  background: linear-gradient(to bottom right, var(--blue), var(--red));
+  /* background: var(--dark);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  font-size: 3em;
+  color: var(--dark);
+  transition: var(--transText);
 }
 
 .logoHeading:hover {
-  background: var(--dark);
+  /* background: linear-gradient(to bottom right, var(--blue), var(--red));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: transparent; */
+  color: var(--blue)
 }
 
 .cleanLink {

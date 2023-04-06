@@ -1,3 +1,6 @@
+// This page users the user model via userArtworks to find artworks, unlike homepage and artwork page which use artwork model
+// this might not be optimal, having the userArtworks endpoint
+
 import { useSession } from "next-auth/react"
 import useSWR from "swr"
 import Link from 'next/link'
@@ -48,13 +51,13 @@ export default function ProtectedPage() {
   )
 }
 
-  // custom middleware to improve SWR functionality and provide user / loading / error responses
-  const getData = (key) => {
-    const { data, error } = useSWR(key, fetcher)
-    // console.log("data:", data)
-    return {
-      artwork: data,
-      isLoading: !error && !data,
-      isError: error,
-    }
+// custom middleware to improve SWR functionality and provide user / loading / error responses
+const getData = (key) => {
+  const { data, error } = useSWR(key, fetcher)
+  // console.log("data:", data)
+  return {
+    artwork: data,
+    isLoading: !error && !data,
+    isError: error,
   }
+}
