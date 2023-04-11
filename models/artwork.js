@@ -23,7 +23,7 @@ const artworkSchema = new mongoose.Schema({
     ref: 'User',
   },
   tags: {
-    type: [String],
+    type: String,
     required: false,
     unique: false,
   }

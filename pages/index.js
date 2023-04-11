@@ -18,11 +18,17 @@ export default function Home(props) {
       <div className={styles.main}>
         {noWork}
         {work.map(data => {
-          return (
-            <div key={data._id} className={styles.singleWork}>
-              <Work data={data} showLink />
-            </div>
-          )
+
+          // only show if we have a valid user attached to work
+          if (!data.user) {
+            return;
+          } else {
+            return (
+              <div key={data._id} className={styles.singleWork}>
+                <Work data={data} showLink />
+              </div>
+            )
+          }
         })}
       </div>
     </>

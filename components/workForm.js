@@ -32,11 +32,11 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
     year: workForm.year,
     images: {
       alt: workForm.images.alt,
-      uri: workForm.images.uri,
+      uri: workForm.images.uri || '',
       width: workForm.images.width,
       height: workForm.images.height,
     },
-    tags: [workForm.tags],
+    tags: workForm.tags || '',
     user: session?.user?._id
   })
 
@@ -143,23 +143,15 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
     let err = {}
     if (!form.title) err.title = 'Title is required'
     if (!form.images.uri) err.image = 'Image is required'
-    if (!session?.user?._id) err.user = 'You need to login'
+    if (!form.user) err.user = 'You need to login'
     return err
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    // update the tags entry from string to array, split by comma
-
-    const tagsArray = workForm.tags.split(',').map((tag) => tag.trim());
-
-    setForm({
-      ...form,
-      tags: tagsArray,
-    })
-
     console.log('Artwork submitted: ', form);
+
     const errs = formValidate()
     if (Object.keys(errs).length === 0) {
       forNewWork ? postData(form) : putData(form)
@@ -190,7 +182,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
         <div className={styles.uploadContainer}>
           <label htmlFor="image">⬆️ Upload Image</label>
-          <input type="file" id="image" name="image" value="" onChange={handleChange} />
+          <input type="file" id="image" name="image" onChange={handleChange} />
         </div>
 
         <div className={styles.uploadField}>
@@ -230,9 +222,12 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
           />
         </div>
 
+        <input type="hidden" name="user_id" value={ form.user } />
+
         <button type="submit" className="btn">
           ⏭️ Submit
         </button>
+
       <p>{message}</p>
       <div>
         <ol>

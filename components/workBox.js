@@ -66,8 +66,9 @@ const Work = ({ data, showLink, deleteAble, isOwner }) => {
       <div>
         <span>Artist</span>
         <div>
-          <Link href={`/api/users/${data.user._id}`}>{data.user.fullName}</Link>
-          {(data.user._id ===  session?.user?._id) || isOwner ? ' 🥤' : ''}
+          {data?.user?._id ? <Link href={`/api/users/${data.user._id}`}>{data.user.fullName}</Link> : ''}
+          
+          {(data?.user?._id ===  session?.user?._id) || isOwner ? ' 🥤' : ''}
         </div>
       </div>
       <div>
