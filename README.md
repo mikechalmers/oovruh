@@ -1,6 +1,6 @@
 # oovruh
 
-Building my ideal art archiving tool.
+Gradually building an art archiving tool. Testing different tech along the way.
 
 ## Roadmap
 
