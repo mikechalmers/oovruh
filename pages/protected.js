@@ -15,7 +15,7 @@ export default function ProtectedPage() {
 
   // console.log(session);
   // new SWR fetching
-  const { artwork, isLoading, isError } = getData(`http://192.168.0.18:9000/api/userArtworks`);
+  const { artwork, isLoading, isError } = getData(`http://192.168.0.24:9000/api/userArtworks`);
   let usersArt;
 
   if (session && isError) return <h2>error finding data</h2>

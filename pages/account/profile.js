@@ -42,7 +42,7 @@ export default function UserProfile() {
 // GET the user's data from the API (database)
 async function getUserData() {
   try {
-    const res = await fetch('http://192.168.0.18:9000/api/userProfile/');
+    const res = await fetch('http://192.168.0.24:9000/api/userProfile/');
     if (!res.ok) {
       throw new Error('User probably not logged in')
     }

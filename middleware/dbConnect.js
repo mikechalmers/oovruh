@@ -36,8 +36,12 @@ async function dbConnect () {
       bufferCommands: false,
     }
 
-    cached.promise = mongoose.connect(ATLAS_URI, opts).then(mongoose => {
+  cached.promise = mongoose.connect(ATLAS_URI, opts)
+    .then(mongoose => {
       return mongoose
+    })
+    .catch(err => {
+      console.error('Failed to connect to MongoDB', err)
     })
   }
   cached.conn = await cached.promise

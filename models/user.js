@@ -2,6 +2,8 @@ import mongoose, { Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
 import validator from 'validator'
 
+// To prepare for Mongoose 7
+mongoose.set('strictQuery', false);
 
 const userSchema = new mongoose.Schema({
   email: {

@@ -6,7 +6,8 @@
     "dev": "next dev -p 9000",
     "build": "next build",
     "start": "next start -p 9000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "seed": "node seeder.mjs"
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.1",

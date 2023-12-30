@@ -22,7 +22,7 @@ const UserForm = ({ formId, userData }) => {
   /* The PUT method edits an existing entry in the mongodb database. */
   const putData = async (form, id) => {
     try {
-      const res = await fetch(`http://192.168.0.18:9000/api/users/${id}`, {
+      const res = await fetch(`http://192.168.0.24:9000/api/users/${id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,

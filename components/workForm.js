@@ -23,7 +23,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   let { uploadToS3 } = useS3Upload();
 
   const { data: session, status } = useSession()
-  // console.log(session, status)
+  console.log(session, status)
 
   const id = router.query._id;
 
@@ -44,7 +44,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   const putData = async (form) => {
 
     try {
-      const res = await fetch(`http://192.168.0.18:9000/api/artworks/${id}`, {
+      const res = await fetch(`http://192.168.0.24:9000/api/artworks/${id}`, {
         method: 'PUT',
         headers: {
           Accept: contentType,
@@ -63,6 +63,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
       mutate(`/api/artworks/${id}`, data, false) // Update the local data without a revalidation
       router.push('/')
     } catch (error) {
+      console.log(error);
       setMessage('Failed to update work')
     }
   }
@@ -70,7 +71,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
   /* The POST method adds a new entry in the mongodb database. */
   const postData = async (form) => {
     try {
-      const res = await fetch(`http://192.168.0.18:9000/api/artworks`, {
+      const res = await fetch(`http://192.168.0.24:9000/api/artworks`, {
         method: 'POST',
         headers: {
           Accept: contentType,
@@ -86,6 +87,7 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
       router.push('/')
     } catch (error) {
+      console.log(error);
       setMessage('Failed to add work')
     }
   }
@@ -149,6 +151,8 @@ const Form = ({ formId, workForm, forNewWork = true }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    console.log('User: ', form.user);
 
     console.log('Artwork submitted: ', form);
 

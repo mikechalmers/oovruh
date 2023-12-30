@@ -1,4 +1,4 @@
-import connectDB from '/middleware/mongoose';
+import dbConnect from '/middleware/dbConnect';
 import Artwork from '/models/artwork';
 
 const seedWorks = [
@@ -48,4 +48,4 @@ seedDB()
   .catch((err) => {console.log('uh oh', err)})
 
 
-export default connectDB(seedDB);
+export default dbConnect(seedDB);
